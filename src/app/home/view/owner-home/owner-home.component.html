@@ -1,0 +1,54 @@
+<div class="owner-home-container">
+  <div class="owner-home-title-container">
+    <mat-icon>person</mat-icon>
+    <h3 class="owner-home-title">Owner's Home</h3>
+  </div>
+  <div [ngSwitch]="status$ | async">
+    <app-initial-view
+      *ngSwitchCase="homeStatus.initial"
+      message="Initializing"
+    ></app-initial-view>
+    <app-loading-view
+      *ngSwitchCase="homeStatus.loading"
+      message="Loading"
+    ></app-loading-view>
+    <app-error-view *ngSwitchCase="homeStatus.failure"></app-error-view>
+    <div *ngSwitchCase="homeStatus.success" class="owner-home-card-container">
+      <mat-card
+        class="home-card add-owner-home-card"
+        (click)="openCreateHomeDialog()"
+      >
+        <mat-card-content class="add-owner-home-content">
+          <img src="../../../../assets/add.png" alt="add" />
+          <h4>Create New Home</h4>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="home-card" *ngFor="let home of home$ | async">
+        <mat-card-title-group>
+          <mat-card-title>{{ home.name }}</mat-card-title>
+          <mat-card-subtitle>{{ home.id }}</mat-card-subtitle>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            (click)="stopEvent($event)"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openEditHomeDialog(home)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="openDeleteHomeDialog(home)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </mat-card-title-group>
+        <mat-card-content>
+          <p class="home-card-content">{{ home.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

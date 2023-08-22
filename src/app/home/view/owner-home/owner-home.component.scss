@@ -1,0 +1,59 @@
+.owner-home-container {
+    border: 1px solid grey;
+    margin: 10px;
+
+    >* {
+        margin: 10px;
+    }
+
+    .owner-home-title-container {
+        display: flex;
+
+        >* {
+            padding: 5px;
+        }
+    }
+
+    .owner-home-title {
+        font-weight: 500;
+    }
+
+    .owner-home-card-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .add-owner-home-card {
+            cursor: pointer;
+        }
+
+        .add-owner-home-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h4 {
+                font-weight: 500;
+            }
+
+            .add-icon {
+                transform: scale(2);
+            }
+        }
+
+        .home-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+            min-height: 150px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+
+            .home-card-content {
+                padding-top: 10px;
+            }
+        }
+    }
+}

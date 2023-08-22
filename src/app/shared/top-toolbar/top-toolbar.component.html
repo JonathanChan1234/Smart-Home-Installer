@@ -1,0 +1,37 @@
+<mat-toolbar class="title-toolbar">
+  <span
+    aria-hidden="true"
+    (keypress)="navigateToHome()"
+    (click)="navigateToHome()"
+    class="title-span"
+    >{{ title }}</span
+  >
+  <button
+    mat-mini-fab
+    color="basic"
+    aria-label="avatar-icon-button"
+    [matMenuTriggerFor]="menu"
+    *ngIf="user"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div>
+      <div class="account-container">
+        <div>
+          <span class="dot">{{ firstLetterOfUsername }}</span>
+        </div>
+        <div>
+          {{ user?.username ?? "?" }}
+        </div>
+        <div class="user-id-text">
+          {{ user?.userId ?? "?" }}
+        </div>
+        <button mat-button (click)="signOut()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </div>
+    </div>
+  </mat-menu>
+</mat-toolbar>

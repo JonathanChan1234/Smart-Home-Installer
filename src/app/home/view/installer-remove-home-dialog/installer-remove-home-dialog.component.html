@@ -1,0 +1,35 @@
+<div class="dialog-container">
+  <div class="dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>delete</mat-icon>
+      Remove Home
+    </h2>
+    <button
+      mat-icon-button
+      (click)="closeDialog()"
+      [disabled]="loading$ | async"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <div>
+      <p>
+        Are you sure you want to remove {{ data.home.name }}? This will remove
+        all your permission of this home. This is an irrevisible action.
+      </p>
+      <app-loading-view
+        *ngIf="loading$ | async"
+        message="Loading..."
+      ></app-loading-view>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="confirm()"
+        [disabled]="loading$ | async"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</div>

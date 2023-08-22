@@ -1,0 +1,16 @@
+.initial-view-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    >* {
+        margin: 10px;
+    }
+
+    .initial-text {
+        font-size: medium;
+        font-weight: 500;
+    }
+}

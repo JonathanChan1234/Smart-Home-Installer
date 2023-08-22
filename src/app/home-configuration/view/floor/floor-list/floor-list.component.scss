@@ -1,0 +1,50 @@
+.floor-list-container {
+    margin: 10px 0px 10px 10px;
+    padding: 10px;
+    max-width: calc(50%);
+    height: calc(80%);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid black;
+    box-sizing: border-box;
+
+    .floor-list-title-container {
+        display: flex;
+        align-items: center;
+
+        >* {
+            padding: 5px;
+        }
+
+        .floor-list-title {
+            font-size: 18px;
+            font-weight: 900;
+        }
+    }
+
+    .add-floor-form-container {
+        padding: 5px;
+
+        .add-floor-form {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

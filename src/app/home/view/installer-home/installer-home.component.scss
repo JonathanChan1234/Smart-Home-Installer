@@ -1,0 +1,55 @@
+.installer-home-container {
+    border: 1px solid grey;
+    margin: 10px;
+
+    >* {
+        margin: 10px;
+    }
+
+    .installer-home-title-container {
+        display: flex;
+
+        >* {
+            padding: 5px;
+        }
+    }
+
+    .installer-home-title {
+        font-weight: 500;
+    }
+
+    .installer-home-card-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .add-installer-home-card {
+            cursor: pointer;
+        }
+
+        .add-installer-home-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h4 {
+                font-weight: 500;
+            }
+        }
+
+        .home-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+            min-height: 150px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+
+            .home-card-content {
+                padding-top: 10px;
+            }
+        }
+    }
+}

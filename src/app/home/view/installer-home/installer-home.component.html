@@ -1,0 +1,57 @@
+<div class="installer-home-container">
+  <div class="installer-home-title-container">
+    <mat-icon>engineering</mat-icon>
+    <h3 class="installer-home-title">Installer's Home</h3>
+  </div>
+  <div [ngSwitch]="status$ | async">
+    <app-initial-view
+      *ngSwitchCase="homeStatus.initial"
+      message="Initializing"
+    ></app-initial-view>
+    <app-loading-view
+      *ngSwitchCase="homeStatus.loading"
+      message="Loading"
+    ></app-loading-view>
+    <app-error-view *ngSwitchCase="homeStatus.failure"></app-error-view>
+    <div
+      *ngSwitchCase="homeStatus.success"
+      class="installer-home-card-container"
+    >
+      <mat-card
+        class="home-card add-installer-home-card"
+        (click)="openJoinHomeDialog()"
+      >
+        <mat-card-content class="add-installer-home-content">
+          <img src="../../../../assets/add.png" alt="add" />
+          <h4>Join New Home</h4>
+        </mat-card-content>
+      </mat-card>
+      <mat-card
+        class="home-card"
+        *ngFor="let home of home$ | async"
+        (click)="navigateToHomeConfiguration(home)"
+      >
+        <mat-card-title-group>
+          <mat-card-title>{{ home.name }}</mat-card-title>
+          <mat-card-subtitle>{{ home.id }}</mat-card-subtitle>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            (click)="stopEvent($event)"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openRemoveHomeDialog(home)">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </mat-card-title-group>
+        <mat-card-content class="home-card-content">
+          <p>{{ home.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

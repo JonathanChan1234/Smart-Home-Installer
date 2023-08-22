@@ -1,0 +1,92 @@
+<div class="create-home-dialog-container">
+  <div class="create-home-dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>design_services</mat-icon>
+      {{ data?.home ? "Edit" : "Create New" }} Home
+    </h2>
+    <button
+      mat-icon-button
+      (click)="closeDialog()"
+      [disabled]="(status$ | async) === homeStatus.loading"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <app-loading-view
+      *ngIf="(status$ | async) === homeStatus.loading"
+      message="Loading..."
+    ></app-loading-view>
+    <div
+      class="form-container"
+      *ngIf="(status$ | async) !== homeStatus.loading"
+    >
+      <form
+        [formGroup]="formGroup"
+        class="create-home-form"
+        (ngSubmit)="submit()"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="formGroup.get('name')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error *ngIf="formGroup.get('name')?.hasError('maxlength')"
+            >Maximum Character is 30</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+          <mat-error *ngIf="formGroup.get('description')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error *ngIf="formGroup.get('description')?.hasError('maxlength')"
+            >Maximum Character is 100</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>User Password</mat-label>
+          <input matInput formControlName="userPassword" />
+          <mat-error *ngIf="formGroup.get('userPassword')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error
+            *ngIf="formGroup.get('userPassword')?.hasError('maxlength')"
+            >Maximum Character is 30</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Installer Password</mat-label>
+          <input matInput formControlName="installerPassword" />
+          <mat-error
+            *ngIf="formGroup.get('installerPassword')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error
+            *ngIf="formGroup.get('installerPassword')?.hasError('maxlength')"
+            >Maximum Character is 30</mat-error
+          >
+        </mat-form-field>
+        <div
+          *ngIf="(status$ | async) === homeStatus.failure"
+          class="create-home-error-container"
+        >
+          <h5>{{ (error$ | async) ?? "Something is wrong" }}</h5>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="create-btn"
+          type="submit"
+          [disabled]="
+            (status$ | async) === homeStatus.loading || formGroup.invalid
+          "
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

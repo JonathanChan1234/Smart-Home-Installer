@@ -1,0 +1,117 @@
+<div class="register-page-container">
+  <form [formGroup]="formGroup" (ngSubmit)="register()" class="register-form">
+    <h2>Register Installer Account</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        class="email-form-field"
+      />
+      <button
+        *ngIf="formGroup.value.email"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        type="button"
+        (click)="formGroup.patchValue({ email: '' })"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+        Required</mat-error
+      >
+      <mat-error *ngIf="formGroup.get('email')?.hasError('email')">
+        Invaild Email</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" class="username-form-field" />
+      <button
+        *ngIf="formGroup.value.username"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        type="button"
+        (click)="formGroup.patchValue({ username: '' })"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+        Required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        class="password-form-field"
+      />
+      <button
+        *ngIf="formGroup.value.password"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        type="button"
+        (click)="formGroup.patchValue({ password: '' })"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="formGroup.get('password')?.hasError('required')">
+        Required</mat-error
+      >
+      <mat-error *ngIf="formGroup.get('password')?.hasError('pattern')">
+        The password does not match the required pattern</mat-error
+      >
+      <mat-hint align="start">
+        At least 8 alphabet and numeric characters
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm Your Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="confirmPassword"
+        class="confirm-password-form-field"
+        [errorStateMatcher]="confirmPasswordErrorMatcher"
+      />
+      <button
+        *ngIf="formGroup.value.confirmPassword"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        type="button"
+        (click)="formGroup.patchValue({ confirmPassword: '' })"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="formGroup.get('confirmPassword')?.hasError('required')">
+        Required</mat-error
+      >
+      <mat-error *ngIf="formGroup.hasError('confirmPassword')">
+        Password does not match</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="register-btn"
+      [disabled]="!formGroup.valid || (isLoading$ | async)"
+    >
+      Register
+    </button>
+    <button
+      mat-button
+      (click)="navigateToLoginPage()"
+      class="navigate-to-login-btn"
+    >
+      Already Have An Account? Click Here to Login
+    </button>
+  </form>
+</div>

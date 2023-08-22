@@ -1,0 +1,11 @@
+.error-view-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .error-text {
+        font-weight: 500;
+    }
+}

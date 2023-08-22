@@ -1,0 +1,36 @@
+<div class="delete-home-dialog-container">
+  <div class="delete-home-dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>warning</mat-icon>
+      Delete {{ data.home.name }}
+    </h2>
+    <button
+      mat-icon-button
+      (click)="closeDialog()"
+      [disabled]="(status$ | async) === homeStatus.loading"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <div>
+      <p>
+        Are you sure you want to delete this home? All the home data will be
+        deleted. This is an irrevisible action.
+      </p>
+      <app-loading-view
+        *ngIf="(status$ | async) === homeStatus.loading"
+      ></app-loading-view>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="warn"
+        [disabled]="(status$ | async) === homeStatus.loading"
+        (click)="deleteHome()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<ng-container [ngSwitch]="status$ | async">
+  <div *ngSwitchCase="floorStatus.initial">
+    <app-initial-view></app-initial-view>
+  </div>
+  <div *ngSwitchCase="floorStatus.loading">
+    <app-loading-view></app-loading-view>
+  </div>
+  <div *ngSwitchCase="floorStatus.failure">
+    <app-error-view
+      [message]="(error$ | async) ?? 'Something is wrong'"
+    ></app-error-view>
+  </div>
+  <div class="floor-list-container" *ngSwitchCase="floorStatus.success">
+    <div class="floor-list-title-container">
+      <mat-icon>house</mat-icon>
+      <div class="floor-list-title">Home</div>
+      <button mat-icon-button (click)="setEditMode(true)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="editMode$ | async" class="add-floor-form-container">
+      <form
+        class="add-floor-form"
+        [formGroup]="formGroup"
+        (ngSubmit)="addFloor()"
+      >
+        <mat-form-field appearance="fill" class="dense-2">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            class="floor-name-input"
+          />
+          <mat-error *ngIf="formGroup.get('name')?.hasError('required')">
+            Required</mat-error
+          >
+        </mat-form-field>
+        <button
+          mat-icon-button
+          type="submit"
+          [class.spinner]="addFloorLoading$ | async"
+          [disabled]="addFloorLoading$ | async"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="setEditMode(false)"
+          [disabled]="addFloorLoading$ | async"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </form>
+    </div>
+
+    <div *ngFor="let floor of floors$ | async as floors">
+      <div
+        cdkDropList
+        #floorList="cdkDropList"
+        [id]="floor.id"
+        [cdkDropListData]="floor.rooms"
+        [cdkDropListConnectedTo]="toFloorIdList(floors)"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-floor-item [floor]="floor"></app-floor-item>
+      </div>
+    </div>
+  </div>
+</ng-container>

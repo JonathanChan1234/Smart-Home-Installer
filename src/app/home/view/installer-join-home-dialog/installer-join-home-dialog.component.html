@@ -1,0 +1,55 @@
+<div class="dialog-container">
+  <div class="dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>group_add</mat-icon>
+      Join Home
+    </h2>
+    <button
+      mat-icon-button
+      (click)="closeDialog()"
+      [disabled]="loading$ | async"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <app-loading-view
+      *ngIf="loading$ | async"
+      message="Loading..."
+    ></app-loading-view>
+    <div class="form-container">
+      <form [formGroup]="formGroup" class="dialog-form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Home ID</mat-label>
+          <input matInput formControlName="homeId" />
+          <mat-error *ngIf="formGroup.get('homeId')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error *ngIf="formGroup.get('homeId')?.hasError('pattern')"
+            >Home ID must be a vallid UUID</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Installer Password</mat-label>
+          <input matInput formControlName="installerPassword" />
+          <mat-error
+            *ngIf="formGroup.get('installerPassword')?.hasError('required')"
+            >Required</mat-error
+          >
+        </mat-form-field>
+        <div *ngIf="error$ | async" class="installer-join-home-error-container">
+          <h5>{{ (error$ | async) ?? "Something is wrong" }}</h5>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="create-btn"
+          type="submit"
+          [disabled]="(loading$ | async) || formGroup.invalid"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

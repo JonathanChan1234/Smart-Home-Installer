@@ -1,0 +1,30 @@
+.floor-item {
+    display: flex;
+    align-items: center;
+
+    .invisible-icon {
+        visibility: hidden;
+    }
+
+    .floor-text-container {
+        display: flex;
+        align-items: center;
+
+        >* {
+            padding-left: 5px;
+        }
+
+        .floor-text {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .menu-button {
+            visibility: hidden;
+        }
+    }
+}
+
+.add-room-form {
+    margin-left: 50px;
+}

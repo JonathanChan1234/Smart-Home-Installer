@@ -1,0 +1,25 @@
+.register-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.register-form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    >* {
+        margin-bottom: 20px;
+    }
+}
+
+.navigate-to-login-btn {
+    margin: 10px;
+}

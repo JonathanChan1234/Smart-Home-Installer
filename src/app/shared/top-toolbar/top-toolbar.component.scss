@@ -1,0 +1,39 @@
+.title-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dot {
+    height: 50px;
+    width: 50px;
+    color: white;
+    background-color: #8c00fff8;
+    border-radius: 50%;
+    line-height: 50px;
+    font-weight: 400;
+    font-size: large;
+    text-align: center;
+    display: inline-block;
+}
+
+.account-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+
+    >* {
+        padding: 3px
+    }
+
+    .user-id-text {
+        color: grey;
+        font-size: 9px;
+    }
+}
+
+
+.title-span {
+    cursor: pointer;
+}

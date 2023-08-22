@@ -1,0 +1,35 @@
+.page-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page-container {
+    border: 2px solid plum;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+
+    .mat-form-field {
+        width: 80%;
+        margin-top: 20px;
+    }
+}
+
+.navigate-to-register-btn {
+    margin: 10px;
+}

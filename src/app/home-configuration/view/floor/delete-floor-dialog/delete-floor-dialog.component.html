@@ -1,0 +1,34 @@
+<div class="dialog-container">
+  <div class="dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>warning</mat-icon>
+      Delete {{ data.floor.name }}
+    </h2>
+    <button
+      mat-icon-button
+      (click)="closeDialog()"
+      [disabled]="deleteLoading$ | async"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <div>
+      <p>
+        Are you sure you want to delete this floor? All the rooms and devices in
+        this floor will be deleted. This is an irrevisible action.
+      </p>
+      <app-loading-view *ngIf="deleteLoading$ | async"></app-loading-view>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="warn"
+        [disabled]="deleteLoading$ | async"
+        (click)="deleteHome()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
