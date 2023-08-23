@@ -18,6 +18,7 @@ export type EditableType<T> = T & {
 };
 export type FloorItem = Omit<EditableType<Floor>, 'rooms'> & {
   showAddRoomForm: boolean;
+  addRoomLoading: boolean;
   rooms: EditableType<Room>[];
 };
 
@@ -169,7 +170,123 @@ export const homeConfigurationReducer = createReducer(
     HomeConfigurationAction.deleteFloorFailure,
     (state): HomeConfigurationState => ({
       ...state,
+      deleteLoading: false,
+    })
+  ),
+  on(
+    HomeConfigurationAction.setAddRoomFormVisibility,
+    (state, { floorId, show: showAddRoomForm }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(state.floors, floorId, { showAddRoomForm }),
+    })
+  ),
+  on(
+    HomeConfigurationAction.addRoomRequest,
+    (state, { floorId }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(state.floors, floorId, { addRoomLoading: true }),
+    })
+  ),
+  on(
+    HomeConfigurationAction.addRoomSuccess,
+    (state, { room }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {
+          showAddRoomForm: false,
+          addRoomLoading: false,
+        },
+        { ...room, editLoading: false, editMode: false }
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.addRoomFailure,
+    (state, { floorId }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(state.floors, floorId, { addRoomLoading: false }),
+    })
+  ),
+  on(
+    HomeConfigurationAction.setRoomEditMode,
+    (state, { room, editMode }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {},
+        { ...room, editMode },
+        false
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.editRoomRequest,
+    (state, { room }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {},
+        { ...room, editLoading: true },
+        false
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.editRoomSuccess,
+    (state, { room, name }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {},
+        { ...room, name, editLoading: false, editMode: false },
+        false
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.editRoomFailure,
+    (state, { room }): HomeConfigurationState => ({
+      ...state,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {},
+        { ...room, editLoading: false },
+        false
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.deleteRoomRequest,
+    (state): HomeConfigurationState => ({
+      ...state,
       deleteLoading: true,
+    })
+  ),
+  on(
+    HomeConfigurationAction.deleteRoomSuccess,
+    (state, { room }): HomeConfigurationState => ({
+      ...state,
+      deleteLoading: false,
+      floors: editFloors(
+        state.floors,
+        room.floorId,
+        {},
+        { ...room, editLoading: false, editMode: false },
+        true
+      ),
+    })
+  ),
+  on(
+    HomeConfigurationAction.deleteRoomFailure,
+    (state): HomeConfigurationState => ({
+      ...state,
+      deleteLoading: false,
     })
   ),
   on(
@@ -212,16 +329,36 @@ export const homeConfigurationReducer = createReducer(
 
 const editFloors = (
   originalFloors: FloorItem[],
-  id: string,
-  params: Partial<FloorItem>
+  floorId: string,
+  params: Partial<FloorItem>,
+  room?: EditableType<Room>,
+  deleteRoom = false
 ): FloorItem[] => {
-  const floorIndex = originalFloors.findIndex((floor) => floor.id === id);
+  // if the target floor id is not found, return the original obj
+  const floorIndex = originalFloors.findIndex((floor) => floor.id === floorId);
   if (floorIndex === -1) return originalFloors;
+
+  // copy the floors arr and reassign the properties of the target floor
   const floors = [...originalFloors];
   const floor = floors[floorIndex];
+
+  // copy the rooms of the floor and reassign properties
+  let rooms = [...floor.rooms];
+  if (room != null) {
+    const existingRoomIndex = floor.rooms.findIndex((r) => r.id === room?.id);
+    if (existingRoomIndex === -1) {
+      rooms = rooms.concat(room);
+    } else if (deleteRoom) {
+      rooms = rooms.filter((r) => r.id !== room.id);
+    } else {
+      rooms[existingRoomIndex] = room;
+    }
+  }
+
   floors[floorIndex] = {
     ...floor,
     ...params,
+    rooms,
   };
   return floors;
 };

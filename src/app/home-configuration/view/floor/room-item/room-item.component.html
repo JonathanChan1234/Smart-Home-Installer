@@ -1,7 +1,7 @@
 <div class="room-item" cdkDrag (contextmenu)="openRoomOptionMenu()">
   <div class="room-text-container">
     <mat-icon>weekend</mat-icon>
-    <div class="room-text" *ngIf="!editMode; else editForm">
+    <div class="room-text" *ngIf="!room.editMode; else showEditForm">
       {{ room.name }}
     </div>
     <div [matMenuTriggerFor]="menu" class="menu-button"></div>
@@ -10,13 +10,13 @@
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="openDeleteRoomDialog()">
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
       </button>
     </mat-menu>
   </div>
-  <ng-template #editForm>
+  <ng-template #showEditForm>
     <form
       class="floor-text-container"
       [formGroup]="formGroup"
@@ -34,10 +34,19 @@
           Required</mat-error
         >
       </mat-form-field>
-      <button mat-icon-button type="submit">
+      <button
+        mat-icon-button
+        type="submit"
+        [disabled]="room.editLoading"
+        (click)="changeRoomName()"
+      >
         <mat-icon>check</mat-icon>
       </button>
-      <button mat-icon-button (click)="setEditMode(false)">
+      <button
+        mat-icon-button
+        (click)="setEditMode(false)"
+        [disabled]="room.editLoading"
+      >
         <mat-icon>close</mat-icon>
       </button>
     </form>

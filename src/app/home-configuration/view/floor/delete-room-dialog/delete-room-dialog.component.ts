@@ -3,21 +3,21 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Floor } from 'src/app/home-configuration/models/floor';
+import { Room } from 'src/app/home-configuration/models/room';
 import { HomeConfigurationAction } from 'src/app/home-configuration/store/home-configuration.action';
 import { HomeConfigurationSelector } from 'src/app/home-configuration/store/home-configuration.selector';
 
 @Component({
-  selector: 'app-delete-floor-dialog',
-  templateUrl: './delete-floor-dialog.component.html',
-  styleUrls: ['./delete-floor-dialog.component.scss'],
+  selector: 'app-delete-room-dialog',
+  templateUrl: './delete-room-dialog.component.html',
+  styleUrls: ['./delete-room-dialog.component.scss'],
 })
-export class DeleteFloorDialogComponent implements OnInit {
+export class DeleteRoomDialogComponent implements OnInit {
   deleteLoading$!: Observable<boolean>;
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteFloorDialogComponent>,
-    @Inject(DIALOG_DATA) public data: { floor: Floor },
+    public dialogRef: MatDialogRef<DeleteRoomDialogComponent>,
+    @Inject(DIALOG_DATA) public data: { homeId: string; room: Room },
     private store: Store
   ) {}
 
@@ -27,16 +27,12 @@ export class DeleteFloorDialogComponent implements OnInit {
     );
   }
 
-  deleteFloor(): void {
+  deleteRoom(): void {
     this.store.dispatch(
-      HomeConfigurationAction.deleteFloorRequest({
-        homeId: this.data.floor.homeId,
-        floorId: this.data.floor.id,
+      HomeConfigurationAction.deleteRoomRequest({
+        homeId: this.data.homeId,
+        room: this.data.room,
       })
     );
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

@@ -79,7 +79,7 @@
   </div>
 </div>
 <ng-container *ngIf="expand">
-  <div *ngIf="addRoomFormVisible" class="add-room-form">
+  <div *ngIf="floor.showAddRoomForm" class="add-room-form">
     <form
       class="floor-text-container"
       [formGroup]="roomNameFormGroup"
@@ -97,10 +97,20 @@
           Required</mat-error
         >
       </mat-form-field>
-      <button mat-icon-button type="submit">
+      <button
+        mat-icon-button
+        type="submit"
+        [class.spinner]="floor.addRoomLoading"
+        [disabled]="floor.addRoomLoading"
+        (click)="addRoom()"
+      >
         <mat-icon>check</mat-icon>
       </button>
-      <button mat-icon-button (click)="hideAddRoomForm()">
+      <button
+        mat-icon-button
+        (click)="hideAddRoomForm()"
+        [disabled]="floor.addRoomLoading"
+      >
         <mat-icon>close</mat-icon>
       </button>
     </form>

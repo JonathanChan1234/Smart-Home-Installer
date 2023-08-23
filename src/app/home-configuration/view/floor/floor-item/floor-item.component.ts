@@ -20,7 +20,6 @@ export class FloorItemComponent implements OnInit {
   expand = true;
   floorNameFormGroup: FormGroup;
   roomNameFormGroup: FormGroup;
-  addRoomFormVisible = false;
 
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
@@ -42,7 +41,6 @@ export class FloorItemComponent implements OnInit {
 
   hideRoomList(): void {
     this.expand = false;
-    this.addRoomFormVisible = false;
   }
 
   setEditMode(editMode: boolean): void {
@@ -65,11 +63,33 @@ export class FloorItemComponent implements OnInit {
 
   showAddRoomForm(): void {
     this.expand = true;
-    this.addRoomFormVisible = true;
+    this.store.dispatch(
+      HomeConfigurationAction.setAddRoomFormVisibility({
+        floorId: this.floor.id,
+        show: true,
+      })
+    );
   }
 
   hideAddRoomForm(): void {
-    this.addRoomFormVisible = false;
+    this.store.dispatch(
+      HomeConfigurationAction.setAddRoomFormVisibility({
+        floorId: this.floor.id,
+        show: false,
+      })
+    );
+  }
+
+  addRoom(): void {
+    if (this.roomNameFormGroup.invalid) return;
+    const { name } = this.roomNameFormGroup.value;
+    this.store.dispatch(
+      HomeConfigurationAction.addRoomRequest({
+        homeId: this.floor.homeId,
+        floorId: this.floor.id,
+        name,
+      })
+    );
   }
 
   changeFloorName(): void {

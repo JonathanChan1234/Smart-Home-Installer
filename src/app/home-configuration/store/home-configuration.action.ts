@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { FloorItem } from './home-configuration.reducer';
+import { Room } from '../models/room';
+import { EditableType, FloorItem } from './home-configuration.reducer';
 
 const fetchHomeFloor = createAction(
   '[FloorList Component] fetchHomeFloor',
@@ -71,6 +72,61 @@ const deleteFloorFailure = createAction(
   props<{ error: string }>()
 );
 
+const setAddRoomFormVisibility = createAction(
+  '[FloorItem Component] setAddRoomFormVisibility',
+  props<{ floorId: string; show: boolean }>()
+);
+
+const addRoomRequest = createAction(
+  '[FloorItem Component] addRoomRequest',
+  props<{ homeId: string; floorId: string; name: string }>()
+);
+
+const addRoomSuccess = createAction(
+  '[FloorItem Component] addRoomSuccess',
+  props<{ room: Room }>()
+);
+
+const addRoomFailure = createAction(
+  '[FloorItem Component] addRoomFailure',
+  props<{ floorId: string; error: string }>()
+);
+
+const setRoomEditMode = createAction(
+  '[RoomItem Component] setRoomEditMode',
+  props<{ room: EditableType<Room>; editMode: boolean }>()
+);
+
+const editRoomRequest = createAction(
+  '[RoomItem Component] editRoomRequest',
+  props<{ homeId: string; room: EditableType<Room>; name: string }>()
+);
+
+const editRoomSuccess = createAction(
+  '[RoomItem Component] editRoomSuccess',
+  props<{ room: EditableType<Room>; name: string }>()
+);
+
+const editRoomFailure = createAction(
+  '[RoomItem Component] editRoomFailure',
+  props<{ room: EditableType<Room>; error: string }>()
+);
+
+const deleteRoomRequest = createAction(
+  '[DeleteRoomDialog Component] deleteRoomRequest',
+  props<{ homeId: string; room: Room }>()
+);
+
+const deleteRoomSuccess = createAction(
+  '[DeleteRoomDialog Component] deleteRoomSuccess',
+  props<{ room: Room }>()
+);
+
+const deleteRoomFailure = createAction(
+  '[DeleteRoomDialog Component] deleteRoomFailure',
+  props<{ room: Room; error: string }>()
+);
+
 const changeRoomFloor = createAction(
   '[FloorList Component] changeRoomFloor',
   props<{ roomId: string; oldFloorId: string; newFloorId: string }>()
@@ -91,5 +147,16 @@ export const HomeConfigurationAction = {
   deleteFloorRequest,
   deleteFloorSuccess,
   deleteFloorFailure,
+  setAddRoomFormVisibility,
+  addRoomRequest,
+  addRoomSuccess,
+  addRoomFailure,
+  setRoomEditMode,
+  editRoomRequest,
+  editRoomSuccess,
+  editRoomFailure,
+  deleteRoomRequest,
+  deleteRoomSuccess,
+  deleteRoomFailure,
   changeRoomFloor,
 };

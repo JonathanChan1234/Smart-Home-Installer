@@ -24,6 +24,7 @@ import { FloorListComponent } from './view/floor/floor-list/floor-list.component
 import { RoomItemComponent } from './view/floor/room-item/room-item.component';
 import { HomeConfigurationComponent } from './view/home-configuration/home-configuration.component';
 import { DeleteFloorDialogComponent } from './view/floor/delete-floor-dialog/delete-floor-dialog.component';
+import { DeleteRoomDialogComponent } from './view/floor/delete-room-dialog/delete-room-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DeleteFloorDialogComponent } from './view/floor/delete-floor-dialog/del
     FloorItemComponent,
     RoomItemComponent,
     DeleteFloorDialogComponent,
+    DeleteRoomDialogComponent,
   ],
   imports: [
     CommonModule,
