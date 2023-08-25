@@ -1,0 +1,16 @@
+<div class="device-overview-container">
+  <h2>Device Overview</h2>
+  <div [ngSwitch]="status$ | async">
+    <app-initial-view *ngSwitchCase="deviceStatus.initial"></app-initial-view>
+    <app-loading-view *ngSwitchCase="deviceStatus.loading"></app-loading-view>
+    <div *ngSwitchCase="deviceStatus.success" class="device-container">
+      <div *ngFor="let device of deviceCount$ | async">
+        <app-device-tile [deviceCount]="device"></app-device-tile>
+      </div>
+    </div>
+    <app-error-view
+      *ngSwitchCase="deviceStatus.failure"
+      [message]="error$ | async"
+    ></app-error-view>
+  </div>
+</div>

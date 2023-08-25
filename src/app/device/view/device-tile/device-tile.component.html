@@ -1,0 +1,12 @@
+<div
+  class="device-title-container"
+  aria-hidden="true"
+  (click)="navigateToDeviceCategory()"
+  (keyup)="navigateToDeviceCategory()"
+>
+  <img [src]="iconPath" class="device-category-icon" alt="category-icon" />
+  <div class="device-category-text">{{ title }}</div>
+  <div class="device-count-text">
+    {{ deviceCount.count }} {{ deviceCount.count > 0 ? "devices" : "device" }}
+  </div>
+</div>

@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ErrorViewComponent {
   @Input()
-  message = 'Something is wrong.';
+  message: string | undefined | null = 'Something is wrong.';
 }

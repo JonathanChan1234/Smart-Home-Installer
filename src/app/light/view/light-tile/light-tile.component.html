@@ -1,0 +1,47 @@
+<div class="light-tile">
+  <div class="light-header">
+    <div class="light-title-container">
+      <img
+        src="../../../../assets/light.png"
+        alt="light-icon"
+        class="light-icon"
+      />
+      <div>
+        <div class="light-title">
+          {{ light.name }}
+        </div>
+        <div class="light-id">{{ light.id }}</div>
+      </div>
+    </div>
+    <div>
+      <mat-icon *ngIf="light.onlineStatus; else offline">wifi</mat-icon>
+      <ng-template #offline>
+        <mat-icon>wifi_off</mat-icon>
+      </ng-template>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <div class="light-properties-container">
+    <div class="light-properties-text">
+      Brightness: {{ light.properties.brightness ?? "?" }}%
+    </div>
+    <div
+      *ngIf="light.capabilities.hasColorTemperature"
+      class="light-properties-text"
+    >
+      Color Temperature: {{ light.properties.colorTemperature ?? "?" }}K
+    </div>
+  </div>
+</div>

@@ -1,4 +1,12 @@
-<div class="room-item" cdkDrag (contextmenu)="openRoomOptionMenu()">
+<div
+  class="room-item"
+  aria-hidden="true"
+  cdkDrag
+  (contextmenu)="openRoomOptionMenu()"
+  (click)="navigateToDeviceOverview()"
+  (keyup)="keyup()"
+  [class.room-selected]="room.id === (currentRoomId$ | async)"
+>
   <div class="room-text-container">
     <mat-icon>weekend</mat-icon>
     <div class="room-text" *ngIf="!room.editMode; else showEditForm">

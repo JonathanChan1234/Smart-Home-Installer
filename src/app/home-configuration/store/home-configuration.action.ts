@@ -132,6 +132,16 @@ const changeRoomFloor = createAction(
   props<{ roomId: string; oldFloorId: string; newFloorId: string }>()
 );
 
+const setCurrentHome = createAction(
+  '[HomeConfiguration Item] setCurrentHome',
+  props<{ homeId: string }>()
+);
+
+const setCurrentRoom = createAction(
+  '[RoomItem Component] setCurrentRoom',
+  props<{ roomId: string }>()
+);
+
 export const HomeConfigurationAction = {
   fetchHomeFloor,
   fetchHomeFloorSuccess,
@@ -159,4 +169,6 @@ export const HomeConfigurationAction = {
   deleteRoomSuccess,
   deleteRoomFailure,
   changeRoomFloor,
+  setCurrentHome,
+  setCurrentRoom,
 };

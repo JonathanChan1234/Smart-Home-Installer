@@ -32,6 +32,8 @@ export interface HomeConfigurationState {
     loading: boolean;
     error?: string;
   };
+  homeId?: string;
+  currentRoomId?: string;
 }
 
 const initialState: HomeConfigurationState = {
@@ -324,6 +326,20 @@ export const homeConfigurationReducer = createReducer(
       };
       return { ...state, floors };
     }
+  ),
+  on(
+    HomeConfigurationAction.setCurrentRoom,
+    (state, { roomId }): HomeConfigurationState => ({
+      ...state,
+      currentRoomId: roomId,
+    })
+  ),
+  on(
+    HomeConfigurationAction.setCurrentHome,
+    (state, { homeId }): HomeConfigurationState => ({
+      ...state,
+      homeId,
+    })
   )
 );
 

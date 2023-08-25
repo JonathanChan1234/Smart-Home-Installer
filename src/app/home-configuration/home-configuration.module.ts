@@ -19,12 +19,14 @@ import {
   homeConfigurationFeatureKey,
   homeConfigurationReducer,
 } from './store/home-configuration.reducer';
+import { DeleteFloorDialogComponent } from './view/floor/delete-floor-dialog/delete-floor-dialog.component';
+import { DeleteRoomDialogComponent } from './view/floor/delete-room-dialog/delete-room-dialog.component';
 import { FloorItemComponent } from './view/floor/floor-item/floor-item.component';
 import { FloorListComponent } from './view/floor/floor-list/floor-list.component';
 import { RoomItemComponent } from './view/floor/room-item/room-item.component';
 import { HomeConfigurationComponent } from './view/home-configuration/home-configuration.component';
-import { DeleteFloorDialogComponent } from './view/floor/delete-floor-dialog/delete-floor-dialog.component';
-import { DeleteRoomDialogComponent } from './view/floor/delete-room-dialog/delete-room-dialog.component';
+import { RoomNotSelectedComponent } from './view/room-not-selected/room-not-selected.component';
+import { NotSupportedDeviceCategoryComponent } from './view/not-supported-device-category/not-supported-device-category.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { DeleteRoomDialogComponent } from './view/floor/delete-room-dialog/delet
     RoomItemComponent,
     DeleteFloorDialogComponent,
     DeleteRoomDialogComponent,
+    RoomNotSelectedComponent,
+    NotSupportedDeviceCategoryComponent,
   ],
   imports: [
     CommonModule,

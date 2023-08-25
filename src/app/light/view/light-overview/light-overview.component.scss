@@ -1,0 +1,15 @@
+.light-overview-container {
+    padding: 20px;
+
+    .light-tiles-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .add-light-fab-container {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 100;
+        }
+    }
+}

@@ -35,6 +35,13 @@ const selectDeleteLoading = createSelector(
   ({ deleteLoading }) => deleteLoading
 );
 
+const selectCurrentRoom = createSelector(
+  selectFeature,
+  ({ currentRoomId }) => currentRoomId
+);
+
+const selectHomeId = createSelector(selectFeature, ({ homeId }) => homeId);
+
 export const HomeConfigurationSelector = {
   selectFloorListStatus,
   selectFloorListError,
@@ -42,4 +49,6 @@ export const HomeConfigurationSelector = {
   selectFloors,
   selectAddFloorLoading,
   selectDeleteLoading,
+  selectCurrentRoom,
+  selectHomeId,
 };

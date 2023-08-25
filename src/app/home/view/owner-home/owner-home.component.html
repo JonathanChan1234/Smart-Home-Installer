@@ -23,7 +23,11 @@
           <h4>Create New Home</h4>
         </mat-card-content>
       </mat-card>
-      <mat-card class="home-card" *ngFor="let home of home$ | async">
+      <mat-card
+        class="home-card"
+        *ngFor="let home of home$ | async"
+        (click)="navigateToHomeConfiguration(home)"
+      >
         <mat-card-title-group>
           <mat-card-title>{{ home.name }}</mat-card-title>
           <mat-card-subtitle>{{ home.id }}</mat-card-subtitle>

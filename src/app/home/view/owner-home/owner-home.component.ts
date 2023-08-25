@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Home } from '../../models/home';
@@ -20,7 +21,11 @@ export class OwnerHomeComponent implements OnInit {
   error$!: Observable<string | undefined>;
   homeStatus = HomeStatus;
 
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.home$ = this.store.select(HomeSelector.selectOwnerHome);
@@ -35,6 +40,10 @@ export class OwnerHomeComponent implements OnInit {
       width: '100%',
       disableClose: true,
     });
+  }
+
+  navigateToHomeConfiguration(home: Home): void {
+    this.router.navigate([`home/${home.id}/configuration`]);
   }
 
   openEditHomeDialog(home: Home): void {

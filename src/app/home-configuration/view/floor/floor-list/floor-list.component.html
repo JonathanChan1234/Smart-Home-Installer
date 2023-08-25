@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="status$ | async">
+<div [ngSwitch]="status$ | async" class="floor-list-container">
   <div *ngSwitchCase="floorStatus.initial">
     <app-initial-view></app-initial-view>
   </div>
@@ -10,7 +10,7 @@
       [message]="(error$ | async) ?? 'Something is wrong'"
     ></app-error-view>
   </div>
-  <div class="floor-list-container" *ngSwitchCase="floorStatus.success">
+  <div class="floor-list" *ngSwitchCase="floorStatus.success">
     <div class="floor-list-title-container">
       <mat-icon>house</mat-icon>
       <div class="floor-list-title">Home</div>
@@ -69,4 +69,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+</div>

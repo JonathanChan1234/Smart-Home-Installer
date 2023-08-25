@@ -3,11 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Room } from 'src/app/home-configuration/models/room';
 import { HomeConfigurationAction } from 'src/app/home-configuration/store/home-configuration.action';
 import { EditableType } from 'src/app/home-configuration/store/home-configuration.reducer';
+import { HomeConfigurationSelector } from 'src/app/home-configuration/store/home-configuration.selector';
 import { DeleteRoomDialogComponent } from '../delete-room-dialog/delete-room-dialog.component';
 
 @Component({
@@ -21,9 +23,12 @@ export class RoomItemComponent implements OnInit {
 
   homeId?: string | null;
   formGroup: FormGroup;
+  currentRoomId$!: Observable<string | undefined>;
+
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private matSnackBar: MatSnackBar,
     private matDialog: MatDialog,
@@ -32,11 +37,16 @@ export class RoomItemComponent implements OnInit {
     this.formGroup = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
-    this.route.paramMap.subscribe((params) => (this.homeId = params.get('id')));
+    this.route.paramMap.subscribe((params) => {
+      this.homeId = params.get('id');
+    });
   }
 
   ngOnInit(): void {
     this.formGroup.patchValue({ name: this.room.name });
+    this.currentRoomId$ = this.store.select(
+      HomeConfigurationSelector.selectCurrentRoom
+    );
   }
 
   openRoomOptionMenu(): boolean {
@@ -74,5 +84,13 @@ export class RoomItemComponent implements OnInit {
       width: '100%',
       data: { room: this.room, homeId: this.homeId },
     });
+  }
+
+  keyup() {
+    console.log('key up');
+  }
+
+  navigateToDeviceOverview(): void {
+    this.router.navigate([`room/${this.room.id}`], { relativeTo: this.route });
   }
 }

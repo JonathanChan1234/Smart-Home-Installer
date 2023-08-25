@@ -1,2 +1,12 @@
-<app-top-toolbar [title]="(id$ | async) ?? ''"></app-top-toolbar>
-<app-floor-list></app-floor-list>
+<div class="home-configuration-container">
+  <app-top-toolbar [title]="homeId ?? ''"></app-top-toolbar>
+  <div class="home-content-container">
+    <div class="home-floor-list" [style.flexBasis]="floorListWidth">
+      <app-floor-list></app-floor-list>
+    </div>
+    <div class="resizer" (mousedown)="resizerMouseDown()"></div>
+    <div class="device-view">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
