@@ -1,0 +1,35 @@
+<div class="dialog-container">
+  <div class="dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>warning</mat-icon>
+      Delete {{ data.light.name }}
+    </h2>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+      [disabled]="deleteLoading$ | async"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <div>
+      <p>
+        Are you sure you want to delete light {{ data.light.name }}? All the
+        scene action involved this light will be deleted. This is an irrevisible
+        action.
+      </p>
+      <app-loading-view *ngIf="deleteLoading$ | async"></app-loading-view>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="warn"
+        [disabled]="deleteLoading$ | async"
+        (click)="deleteLight()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

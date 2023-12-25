@@ -3,31 +3,24 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { baseURL } from 'src/app/config';
 import { AuthenticationError } from 'src/app/jwt/jwt.service';
-import { DeviceCount } from '../models/device-count';
+import { CreateShadeDto } from '../models/create-shade-dto';
+import { Shade } from '../models/shade';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeviceService {
+export class ShadeService {
   constructor(private httpClient: HttpClient) {}
 
-  fetchDeviceCount(homeId: string, roomId: string): Observable<DeviceCount[]> {
+  fetchShadeInRoom(homeId: string, roomId: string): Observable<Shade[]> {
     return this.httpClient
-      .get<DeviceCount[]>(
-        `${baseURL}/home/${homeId}/device/count?roomId=${roomId}`
-      )
+      .get<Shade[]>(`${baseURL}/home/${homeId}/shade?roomId=${roomId}`)
       .pipe(catchError(this.handleError));
   }
 
-  updateDevice(homeId: string, deviceId: string, name: string, roomId: string) {
+  createShade(homeId: string, dto: CreateShadeDto): Observable<Shade> {
     return this.httpClient
-      .put(`${baseURL}/home/${homeId}/device/${deviceId}`, { name, roomId })
-      .pipe(catchError(this.handleError));
-  }
-
-  deleteDevice(homeId: string, deviceId: string) {
-    return this.httpClient
-      .delete(`${baseURL}/home/${homeId}/device/${deviceId}`)
+      .post<Shade>(`${baseURL}/home/${homeId}/shade`, dto)
       .pipe(catchError(this.handleError));
   }
 

@@ -22,11 +22,11 @@
         <mat-icon>settings</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openEditLightDialog()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openDeleteLightDialog()">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
@@ -34,9 +34,24 @@
     </div>
   </div>
   <div class="light-properties-container">
-    <div class="light-properties-text">
+    <div
+      class="light-properties-text"
+      *ngIf="light.capabilities.dimmable; else nonDimmable"
+    >
       Brightness: {{ light.properties.brightness ?? "?" }}%
     </div>
+    <ng-template #nonDimmable>
+      <div class="light-properties-text">
+        Brightness:
+        {{
+          light.properties.brightness
+            ? light.properties.brightness
+              ? "ON"
+              : "OFF"
+            : "?"
+        }}
+      </div>
+    </ng-template>
     <div
       *ngIf="light.capabilities.hasColorTemperature"
       class="light-properties-text"

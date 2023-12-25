@@ -1,0 +1,52 @@
+
+.shade-tile {
+    margin: 10px;
+    min-width: 200px;
+    min-height: 200px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+
+    .shade-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        >* {
+            margin: 10px;
+        }
+
+        .shade-title-container {
+            display: flex;
+            align-items: center;
+
+            .shade-icon {
+                height: 48px;
+                width: 48px;
+            }
+
+            .shade-title {
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+
+            .shade-id {
+                font-size: 10px;
+            }
+        }
+    }
+
+
+    .shade-properties-container {
+        .shade-properties-text {
+            font-size: 14px;
+            font-weight: 200;
+        }
+    }
+}

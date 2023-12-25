@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { baseURL } from 'src/app/config';
 import { AuthenticationError } from 'src/app/jwt/jwt.service';
 import { Floor } from '../../models/floor';
+import { Room } from '../../models/room';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,14 @@ export class FloorService {
     return this.httpClient
       .get<Floor[]>(`${baseURL}/home/${homeId}/floor`)
       .pipe(catchError(this.handleError));
+  }
+
+  fetchRoomList(homeId: string): Observable<Room[]> {
+    return this.fetchFloorList(homeId).pipe(
+      map((floors) =>
+        floors.reduce<Room[]>((acc, val) => acc.concat(val.rooms), [])
+      )
+    );
   }
 
   createFloor(homeId: string, name: string): Observable<Floor> {

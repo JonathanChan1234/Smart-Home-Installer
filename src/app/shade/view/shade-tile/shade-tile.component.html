@@ -1,0 +1,41 @@
+<div class="shade-tile">
+  <div class="shade-header">
+    <div class="shade-title-container">
+      <img
+        src="../../../../assets/curtain.png"
+        alt="shade-icon"
+        class="shade-icon"
+      />
+      <div>
+        <div class="shade-title">
+          {{ shade.name }}
+        </div>
+        <div class="light-id">{{ shade.id }}</div>
+      </div>
+    </div>
+    <div>
+      <mat-icon *ngIf="shade.onlineStatus; else offline">wifi</mat-icon>
+      <ng-template #offline>
+        <mat-icon>wifi_off</mat-icon>
+      </ng-template>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openEditShadeDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="openDeleteShadeDialog()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <div class="shade-properties-container">
+    <div class="shade-properties-text" *ngIf="shade.capabilities.hasLevel">
+      Level: {{ shade.properties.level ?? "?" }}%
+    </div>
+  </div>
+</div>

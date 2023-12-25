@@ -1,0 +1,16 @@
+<div class="overview-container" [ngSwitch]="status$ | async">
+  <app-initial-view *ngSwitchCase="shadeStatus.initial"></app-initial-view>
+  <app-loading-view *ngSwitchCase="shadeStatus.loading"></app-loading-view>
+  <div class="tiles-container" *ngSwitchCase="shadeStatus.success">
+    <app-shade-tile
+      *ngFor="let shade of shades$ | async"
+      [shade]="shade"
+    ></app-shade-tile>
+    <div class="fab-container">
+      <button mat-fab (click)="openAddShadeDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <app-error-view *ngSwitchCase="shadeStatus.failure"></app-error-view>
+</div>

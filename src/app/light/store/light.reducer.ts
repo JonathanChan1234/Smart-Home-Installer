@@ -3,6 +3,7 @@ import { Light } from '../models/light';
 import { LightAction } from './light.action';
 
 export const lightFeatureKey = 'light';
+
 export enum LightStatus {
   initial,
   loading,
@@ -42,6 +43,7 @@ export const lightReducer = createReducer(
     LightAction.fetchLightFailure,
     (state, { error }): LightState => ({
       ...state,
+      status: LightStatus.failure,
       error,
     })
   ),
@@ -56,6 +58,7 @@ export const lightReducer = createReducer(
     LightAction.addLightSuccess,
     (state, { light }): LightState => ({
       ...state,
+      handlingRequest: false,
       lights: state.lights.concat(light),
     })
   ),
@@ -63,6 +66,65 @@ export const lightReducer = createReducer(
     LightAction.addLightFailure,
     (state, { error }): LightState => ({
       ...state,
+      handlingRequest: false,
+      requestError: error,
+    })
+  ),
+  on(
+    LightAction.editLightRequest,
+    (state): LightState => ({
+      ...state,
+      handlingRequest: true,
+    })
+  ),
+  on(
+    LightAction.editLightSuccess,
+    (state, { light, name, roomId }): LightState => {
+      if (light.roomId !== roomId)
+        return {
+          ...state,
+          handlingRequest: false,
+          lights: state.lights.filter((l) => l.id !== light.id),
+        };
+      const lights = [...state.lights];
+      const lightIndex = lights.findIndex((l) => l.id === light.id);
+      if (lightIndex === -1) return { ...state, handlingRequest: false };
+      lights[lightIndex] = { ...lights[lightIndex], name };
+      return {
+        ...state,
+        handlingRequest: false,
+        lights,
+      };
+    }
+  ),
+  on(
+    LightAction.editLightFailure,
+    (state, { error }): LightState => ({
+      ...state,
+      handlingRequest: false,
+      requestError: error,
+    })
+  ),
+  on(
+    LightAction.deleteLightRequest,
+    (state): LightState => ({
+      ...state,
+      handlingRequest: true,
+    })
+  ),
+  on(
+    LightAction.deleteLightSuccess,
+    (state, { light }): LightState => ({
+      ...state,
+      handlingRequest: false,
+      lights: state.lights.filter((l) => l.id !== light.id),
+    })
+  ),
+  on(
+    LightAction.deleteLightFailure,
+    (state, { error }): LightState => ({
+      ...state,
+      handlingRequest: false,
       requestError: error,
     })
   )

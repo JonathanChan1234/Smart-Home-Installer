@@ -1,0 +1,59 @@
+<div class="dialog-container">
+  <div class="dialog-title-container">
+    <h2 mat-dialog-title>
+      <mat-icon>add_box</mat-icon>
+      Edit Shade {{ data.shade.name }}
+    </h2>
+    <button
+      mat-icon-button
+      (click)="matDialogRef.close()"
+      [disabled]="loading$ | async"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <app-loading-view
+      *ngIf="loading$ | async"
+      message="Loading..."
+    ></app-loading-view>
+    <div class="form-container">
+      <form [formGroup]="formGroup" class="dialog-form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="formGroup.get('name')?.hasError('required')"
+            >Required</mat-error
+          >
+          <mat-error *ngIf="formGroup.get('name')?.hasError('maxLength')"
+            >The length of the name cannot be greater than 50</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Room</mat-label>
+          <mat-select required formControlName="roomId">
+            <mat-option *ngFor="let room of rooms$ | async" [value]="room.id">{{
+              room.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.get('roomId')?.hasError('required')">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+        <div *ngIf="error$ | async" class="error-container">
+          <h5>{{ (error$ | async) ?? "Something is wrong" }}</h5>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="create-btn"
+          type="submit"
+          [class.spinner]="loading$ | async"
+          [disabled]="(loading$ | async) || formGroup.invalid"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

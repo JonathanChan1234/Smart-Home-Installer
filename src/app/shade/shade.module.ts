@@ -13,23 +13,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
-import { LightRoutingModule } from './light-routing.module';
-import { LightEffects } from './store/light.effect';
-import { lightFeatureKey, lightReducer } from './store/light.reducer';
-import { AddLightDialogComponent } from './view/add-light-dialog/add-light-dialog.component';
-import { DeleteLightDialogComponent } from './view/delete-light-dialog/delete-light-dialog.component';
-import { EditLightDialogComponent } from './view/edit-light-dialog/edit-light-dialog.component';
-import { LightOverviewComponent } from './view/light-overview/light-overview.component';
-import { LightTileComponent } from './view/light-tile/light-tile.component';
+import { ShadeRoutingModule } from './shade-routing.module';
+import { ShadeEffects } from './store/shade.effect';
+import { shadeFeatureKey, shadeReducer } from './store/shade.reducer';
+import { ShadeOverviewComponent } from './view/shade-overview/shade-overview.component';
+import { ShadeTileComponent } from './view/shade-tile/shade-tile.component';
+import { AddShadeDialogComponent } from './view/add-shade-dialog/add-shade-dialog.component';
+import { EditShadeDialogComponent } from './view/edit-shade-dialog/edit-shade-dialog.component';
+import { DeleteShadeDialogComponent } from './view/delete-shade-dialog/delete-shade-dialog.component';
 
 @NgModule({
-  declarations: [
-    LightOverviewComponent,
-    LightTileComponent,
-    AddLightDialogComponent,
-    EditLightDialogComponent,
-    DeleteLightDialogComponent,
-  ],
+  declarations: [ShadeOverviewComponent, ShadeTileComponent, AddShadeDialogComponent, EditShadeDialogComponent, DeleteShadeDialogComponent],
   imports: [
     MatMenuModule,
     MatIconModule,
@@ -44,9 +38,9 @@ import { LightTileComponent } from './view/light-tile/light-tile.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    LightRoutingModule,
-    StoreModule.forFeature(lightFeatureKey, lightReducer),
-    EffectsModule.forFeature([LightEffects]),
+    ShadeRoutingModule,
+    StoreModule.forFeature(shadeFeatureKey, shadeReducer),
+    EffectsModule.forFeature([ShadeEffects]),
   ],
 })
-export class LightModule {}
+export class ShadeModule {}

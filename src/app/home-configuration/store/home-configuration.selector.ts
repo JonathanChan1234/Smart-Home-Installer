@@ -3,6 +3,7 @@ import {
   HomeConfigurationState,
   homeConfigurationFeatureKey,
 } from './home-configuration.reducer';
+import { Room } from '../models/room';
 
 const selectFeature = createFeatureSelector<HomeConfigurationState>(
   homeConfigurationFeatureKey
@@ -25,6 +26,10 @@ const selectFloorListEditMode = createSelector(
 
 const selectFloors = createSelector(selectFeature, ({ floors }) => floors);
 
+const selectRooms = createSelector(selectFeature, ({ floors }) =>
+  floors.reduce<Room[]>((acc, val) => acc.concat(val.rooms), [])
+);
+
 const selectAddFloorLoading = createSelector(
   selectFeature,
   ({ addFloor }) => addFloor.loading
@@ -46,6 +51,7 @@ export const HomeConfigurationSelector = {
   selectFloorListStatus,
   selectFloorListError,
   selectFloorListEditMode,
+  selectRooms,
   selectFloors,
   selectAddFloorLoading,
   selectDeleteLoading,

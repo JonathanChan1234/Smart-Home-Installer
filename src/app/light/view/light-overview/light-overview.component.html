@@ -1,12 +1,12 @@
-<div class="light-overview-container" [ngSwitch]="status$ | async">
+<div class="overview-container" [ngSwitch]="status$ | async">
   <app-initial-view *ngSwitchCase="lightStatus.initial"></app-initial-view>
   <app-loading-view *ngSwitchCase="lightStatus.loading"></app-loading-view>
-  <div class="light-tiles-container" *ngSwitchCase="lightStatus.success">
+  <div class="tiles-container" *ngSwitchCase="lightStatus.success">
     <app-light-tile
       *ngFor="let light of lights$ | async"
       [light]="light"
     ></app-light-tile>
-    <div class="add-light-fab-container">
+    <div class="fab-container">
       <button mat-fab (click)="openAddLightDialog()">
         <mat-icon>add</mat-icon>
       </button>

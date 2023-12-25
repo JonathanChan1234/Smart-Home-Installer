@@ -45,11 +45,9 @@ export class DeviceTileComponent {
         this.router.navigate(['light'], { relativeTo: this.route });
         break;
       case 1:
-        console.log('navigate to shade');
         this.router.navigate(['shade'], { relativeTo: this.route });
         break;
       case 2:
-        console.log('navigate to ac');
         this.router.navigate(['ac'], { relativeTo: this.route });
         break;
       default:

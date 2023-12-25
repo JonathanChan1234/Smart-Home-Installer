@@ -27,6 +27,11 @@ const routes: Routes = [
               import('../light/light.module').then((m) => m.LightModule),
           },
           {
+            path: 'shade',
+            loadChildren: () =>
+              import('../shade/shade.module').then((m) => m.ShadeModule),
+          },
+          {
             path: '**',
             component: NotSupportedDeviceCategoryComponent,
           },

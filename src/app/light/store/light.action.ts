@@ -32,11 +32,47 @@ const addLightFailure = createAction(
   props<{ error: string }>()
 );
 
+const editLightRequest = createAction(
+  '[EditLightDialog Component] editLightRequest',
+  props<{ light: Light; name: string; roomId: string }>()
+);
+
+const editLightSuccess = createAction(
+  '[EditLightDialog Component] editLightSuccess',
+  props<{ light: Light; name: string; roomId: string }>()
+);
+
+const editLightFailure = createAction(
+  '[EditLightDialog Component] editLightFailure',
+  props<{ error: string }>()
+);
+
+const deleteLightRequest = createAction(
+  '[DeleteLightDialog Component] deleteLightRequest',
+  props<{ light: Light }>()
+);
+
+const deleteLightSuccess = createAction(
+  '[DeleteLightDialog Component] deleteLightSuccess',
+  props<{ light: Light }>()
+);
+
+const deleteLightFailure = createAction(
+  '[DeleteLightDialog Component] deleteLightFailure',
+  props<{ error: string }>()
+);
+
 export const LightAction = {
   fetchLightRequest,
   fetchLightSuccess,
   fetchLightFailure,
   addLightRequest,
   addLightSuccess,
-  addLightFailure
+  addLightFailure,
+  editLightRequest,
+  editLightSuccess,
+  editLightFailure,
+  deleteLightRequest,
+  deleteLightSuccess,
+  deleteLightFailure,
 };
